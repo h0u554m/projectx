@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:projectx/redux/Reducer.dart';
+import 'package:projectx/redux/Store.dart';
+import 'package:projectx/view/pages/HomPage.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 
 void main() {
-  runApp(const MyApp());
+  final store = Store<AppState>(
+    appReducer,
+    initialState: AppState.initialState(),
+  );
+
+  runApp(
+    StoreProvider<AppState>(
+      store: store,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -9,13 +24,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Container(),
+    return const MaterialApp(
+      title: 'Redux App',
+      home: HomePage(),
     );
   }
 }
