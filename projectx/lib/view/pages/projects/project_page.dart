@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../widgets/gradient_tab_Indicator.dart';
 import 'completed_page.dart';
 import 'progress_page.dart';
 
@@ -10,13 +10,30 @@ class ProjectPage extends StatefulWidget {
   State<ProjectPage> createState() => _ProjectPageState();
 }
 
-class _ProjectPageState extends State<ProjectPage> {
-  int _currentIndex = 0;
+class _ProjectPageState extends State<ProjectPage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
 
   final List<Widget> _widgets = [
     const ProgressPage(),
     const CompletedPage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+      length: _widgets.length,
+      vsync: this,
+      initialIndex: 0,
+    );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +42,7 @@ class _ProjectPageState extends State<ProjectPage> {
       appBar: AppBar(
         actions: const [
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.only(right: 15.0),
             child: Icon(
               Icons.add,
               color: Colors.white,
@@ -36,64 +53,29 @@ class _ProjectPageState extends State<ProjectPage> {
         backgroundColor: Colors.black,
         title: const Center(
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.only(left: 18.0),
             child: Text("Projects"),
           ),
         ),
+        bottom: TabBar(
+          controller: _tabController,
+          indicator: GradientTabIndicator(
+            colors: const [
+              Color(0xFFC20EA1),
+              Color(0xFFDD2D7F),
+              Color(0xFFEE4C5E),
+              Color(0xFFF46D41),
+            ], // Specify the gradient colors
+          ),
+          tabs: const [
+            Tab(text: 'Progress'),
+            Tab(text: 'Completed'),
+          ],
+        ),
       ),
-      body: Column(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-                border: Border(
-              bottom: BorderSide(
-                color: Color(0xFF282828),
-                width: 1.0,
-              ),
-            )),
-            height: MediaQuery.of(context).size.height / 12,
-            child: BottomNavigationBar(
-              backgroundColor: Colors.black,
-              currentIndex: _currentIndex,
-              onTap: (index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
-              selectedItemColor: Colors.white,
-              unselectedItemColor: Colors.grey,
-              showSelectedLabels: true,
-              showUnselectedLabels: true,
-              unselectedLabelStyle: const TextStyle(
-                fontFamily: 'Lexend',
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-                height: 1.71,
-                color: Colors.grey,
-              ),
-              selectedLabelStyle: const TextStyle(
-                fontFamily: 'Lexend',
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-                height: 1.71,
-                color: Colors.white,
-              ),
-              items: const [
-                BottomNavigationBarItem(
-                    icon: SizedBox(), label: 'Progress', tooltip: "Progress"),
-                BottomNavigationBarItem(
-                  icon: SizedBox(),
-                  label: 'Completed',
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: _widgets[_currentIndex],
-          ),
-        ],
+      body: TabBarView(
+        controller: _tabController,
+        children: _widgets,
       ),
     );
   }

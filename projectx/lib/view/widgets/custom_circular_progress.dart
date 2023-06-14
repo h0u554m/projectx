@@ -10,11 +10,12 @@ class CustomCircularProgress extends StatefulWidget {
 class _CustomCircularProgressState extends State<CustomCircularProgress> {
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    //here we can make props to get persantage
+    return SizedBox(
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: [
-          Center(
+          const Center(
             child: Text(
               '75%',
               style: TextStyle(
@@ -25,17 +26,24 @@ class _CustomCircularProgressState extends State<CustomCircularProgress> {
             ),
           ),
           SizedBox(
-            width:
-                55, // Increase the width to make the circular progress indicator larger
-            height:
-                55, // Increase the height to make the circular progress indicator larger
+            width: 48,
+            height: 48,
             child: CircularProgressIndicator(
               value: 0.75, // The progress value between 0.0 and 1.0
               backgroundColor: Colors.transparent,
-              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFF46D41)),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                const SweepGradient(
+                  colors: [
+                    Color(0xFFC20EA1),
+                    Color(0xFFDD2D7F),
+                    Color(0xFFEE4C5E),
+                    Color(0xFFF46D41),
+                  ], // Specify
+                ).colors.first,
+              ),
               strokeWidth: 2,
             ),
-          )
+          ),
         ],
       ),
     );
