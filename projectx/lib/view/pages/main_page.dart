@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectx/view/pages/project_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -11,9 +12,9 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    Container(), // Replace with your home widget
-    Container(), // Replace with your settings widget
-    Container(), // Replace with your notifications widget
+    Container(),
+    Container(),
+    const ProjectPage(),
   ];
 
   @override
