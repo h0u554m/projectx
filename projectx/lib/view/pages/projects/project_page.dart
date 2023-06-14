@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:projectx/view/pages/projects/completed_page.dart';
-import 'package:projectx/view/pages/projects/progress_page.dart';
+
+import 'completed_page.dart';
+import 'progress_page.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [
+  final List<Widget> _widgets = [
     const ProgressPage(),
     const CompletedPage(),
   ];
@@ -25,7 +26,10 @@ class _ProjectPageState extends State<ProjectPage> {
         actions: const [
           Padding(
             padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.add),
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
           ),
         ],
         elevation: 0,
@@ -39,7 +43,14 @@ class _ProjectPageState extends State<ProjectPage> {
       ),
       body: Column(
         children: [
-          SizedBox(
+          Container(
+            decoration: const BoxDecoration(
+                border: Border(
+              bottom: BorderSide(
+                color: Color(0xFF282828),
+                width: 1.0,
+              ),
+            )),
             height: MediaQuery.of(context).size.height / 12,
             child: BottomNavigationBar(
               backgroundColor: Colors.black,
@@ -80,7 +91,7 @@ class _ProjectPageState extends State<ProjectPage> {
             ),
           ),
           Expanded(
-            child: _pages[_currentIndex],
+            child: _widgets[_currentIndex],
           ),
         ],
       ),
