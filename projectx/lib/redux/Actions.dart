@@ -1,4 +1,4 @@
-import '../model/Project.model.dart';
+import '../model/project.model.dart';
 
 class AddProjectAction {
   final Project project;
