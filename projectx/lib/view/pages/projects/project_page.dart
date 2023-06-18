@@ -13,11 +13,16 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
   final List<Widget> _widgets = [
     const ProgressPage(),
     const CompletedPage(),
   ];
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -27,12 +32,6 @@ class _ProjectPageState extends State<ProjectPage>
       vsync: this,
       initialIndex: 0,
     );
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
   }
 
   @override
@@ -52,10 +51,7 @@ class _ProjectPageState extends State<ProjectPage>
         elevation: 0,
         backgroundColor: Colors.black,
         title: const Center(
-          child: Padding(
-            padding: EdgeInsets.only(left: 18.0),
-            child: Text("Projects"),
-          ),
+          child: Text("Projects"),
         ),
         bottom: TabBar(
           controller: _tabController,

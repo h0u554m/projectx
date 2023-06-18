@@ -1,9 +1,9 @@
-class Step {
-  final String goal;
-  final bool status;
-
-  Step({
+class ProjectStep {
+  ProjectStep({
     required this.goal,
     required this.status,
   });
+
+  final String goal;
+  final bool status;
 }

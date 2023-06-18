@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class GradientTabIndicator extends Decoration {
-  final BoxPainter _painter;
-
   GradientTabIndicator({required List<Color> colors, int away = 0})
       : _painter = _GradientPainter(colors, away);
+
+  final BoxPainter _painter;
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
@@ -13,10 +13,10 @@ class GradientTabIndicator extends Decoration {
 }
 
 class _GradientPainter extends BoxPainter {
-  final List<Color> colors;
-  final int away;
-
   _GradientPainter(this.colors, this.away);
+
+  final int away;
+  final List<Color> colors;
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {

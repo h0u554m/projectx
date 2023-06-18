@@ -1,11 +1,6 @@
 import 'package:projectx/model/steps.model.dart';
 
 class Project {
-  final String title;
-  final DateTime date;
-  final String routine;
-  final List<Step> steps;
-  final int idUser;
   Project({
     required this.idUser,
     required this.title,
@@ -13,4 +8,10 @@ class Project {
     required this.routine,
     required this.steps,
   });
+
+  final DateTime date;
+  final int idUser;
+  final String routine;
+  final List<ProjectStep> steps;
+  final String title;
 }
